@@ -1,5 +1,5 @@
 import express from 'express'
-import Product from '../models/productModel'
+import Product from '../models/productModel.js'
 import asyncHandler from 'express-async-handler'
 
 const router = express.Router()
@@ -17,7 +17,7 @@ router.get('/', asyncHandler(async(req, res) => {
 // @desc Fetch single products
 // @route GET /api/products/:id
 // @access Public
-app.get('/:id',asyncHandler((req, res) => {
+router.get('/:id',asyncHandler(async(req, res) => {
   const product = await Product.findById(req.params.id)
   if (product) {
     res.json(product);
