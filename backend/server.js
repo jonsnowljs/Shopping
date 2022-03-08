@@ -14,13 +14,16 @@ connectDB()
 const app = express()
 
 app.get('/', (req, res) => {
+  console.log("Home")
   res.send('API is running...')
 })
 
 
 app.use('/api/products', productRoutes)
 
-app.use(notFound)
+// when the address don't meet / and /api/products, it will call the app.use(notFound), app.use(notFound) will pass the error to errorHandler
+app.use(notFound);
+// errorHandler will handle the error throw by productRouter.js and error passed by notFound
 app.use(errorHandler)
 
 
