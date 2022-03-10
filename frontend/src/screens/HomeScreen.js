@@ -17,6 +17,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      {console.log(products)}
       {loading && <Loader />}
       {error ? (
         <Message variant={'danger'}>{error}</Message>
