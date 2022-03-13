@@ -14,8 +14,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const CartScreen = ({ match, location, history }) => {
+  // match.params contains all the parameters in URL.Here URL: /cart/62298d67123c003be0c11ab8 match.params.id:62298d67123c003be0c11ab8
   const productId = match.params.id;
 
+  // location.search equals the query in the url like ?qty=1
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
+    // history.push is a function to redirect
     history.push('/login?redirect=shipping');
   };
 
