@@ -8,8 +8,6 @@ import { login } from '../actions/userAction';
 import FormContainer from '../components/FormContainer';
 
 const LoginScreen = ({ location, history }) => {
-  console.dir(location);
-  console.dir(history);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +16,6 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
 
   const { loading, error, userInfo } = userLogin;
-  console.log(userInfo);
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
