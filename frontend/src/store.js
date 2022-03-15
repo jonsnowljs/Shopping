@@ -34,7 +34,7 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
 
 // put user info to initialState when userinfo is updated
 const userInfoFromStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('cartItems'))
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : [];
 
 const initialState = {
