@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutStep';
 import { Link } from 'react-router-dom';
 import round from 'lodash/round';
+import { createOrder } from '../actions/orderAction';
 
 const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -27,8 +28,28 @@ const PlaceOrderScreen = ({ history }) => {
     2
   );
 
-  // const orderCreate = useSelector((state) => state.orderCreate);
-  // const { order, success, error } = orderCreate;
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [history, success]);
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
+  };
 
   return (
     <>
@@ -102,7 +123,7 @@ const PlaceOrderScreen = ({ history }) => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {/* <ListGroup.Item>
+              <ListGroup.Item>
                 {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -114,7 +135,7 @@ const PlaceOrderScreen = ({ history }) => {
                 >
                   Place Order
                 </Button>
-              </ListGroup.Item> */}
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
