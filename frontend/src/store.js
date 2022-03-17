@@ -12,7 +12,10 @@ import {
   userRegisterReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducers';
-import { orderCreateReducers } from 'reducers/orderReducers';
+import {
+  orderCreateReducers,
+  orderDetailsReducer,
+} from 'reducers/orderReducers';
 // TODO replace redux-devtools-extension to redux-devtools/core
 const reducer = combineReducers({
   productList: productListReducer,
@@ -23,6 +26,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducers,
+  orderDetails: orderDetailsReducer,
 });
 
 // put cartItems to initialState when cartItems is updated
