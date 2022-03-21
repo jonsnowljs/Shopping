@@ -15,6 +15,7 @@ import {
 import {
   orderCreateReducers,
   orderDetailsReducer,
+  orderPayReducer,
 } from 'reducers/orderReducers';
 // TODO replace redux-devtools-extension to redux-devtools/core
 const reducer = combineReducers({
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducers,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 });
 
 // put cartItems to initialState when cartItems is updated

@@ -17,7 +17,7 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, []);
+  }, [dispatch, orderId]);
 
   const deliverHandler = () => {
     // dispatch(deliverOrder(order))
@@ -50,11 +50,25 @@ const OrderScreen = ({ match }) => {
                     {order.shippingAddress.postalCode},{' '}
                     {order.shippingAddress.country}
                   </p>
+                  {order.isDelivered ? (
+                    <Message variant="success">
+                      Delivered on {order.deliveredAt}
+                    </Message>
+                  ) : (
+                    <Message variant="danger">Not Delivered</Message>
+                  )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <h2>Payment Method</h2>
-                  <strong>Method: </strong>
-                  {order.paymentMethod}
+                  <p>
+                    <strong>Method: </strong>
+                    {order.paymentMethod}
+                  </p>
+                  {order.isPaid ? (
+                    <Message variant="success">Paid on {order.paidAt}</Message>
+                  ) : (
+                    <Message variant="danger">Not Paid</Message>
+                  )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <h2>Order Items</h2>
