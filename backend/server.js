@@ -24,6 +24,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
 // when the address don't meet / and /api/products, it will call the app.use(notFound), app.use(notFound) will pass the error to errorHandler
 app.use(notFound);
 // errorHandler will handle the error throw by productRouter.js and error passed by notFound
