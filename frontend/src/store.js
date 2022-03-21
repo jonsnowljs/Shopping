@@ -15,6 +15,7 @@ import {
 import {
   orderCreateReducers,
   orderDetailsReducer,
+  orderListMyReducer,
   orderPayReducer,
 } from 'reducers/orderReducers';
 // TODO replace redux-devtools-extension to redux-devtools/core
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducers,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderListMy: orderListMyReducer,
 });
 
 // put cartItems to initialState when cartItems is updated
