@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userAction';
 import { listMyOrders } from 'actions/orderAction';
 import { LinkContainer } from 'react-router-bootstrap';
+import { USER_UPDATE_PROFILE_RESET } from 'constants/userConstants';
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -33,7 +34,8 @@ const ProfileScreen = ({ location, history }) => {
       // Pretty much means the URL. One method in history object is .push() which redirects you to another URL.
       history.push('/login');
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrders());
       } else {
@@ -41,7 +43,7 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email);
       }
     }
-  }, [history, userInfo, dispatch, user, orderListMy]);
+  }, [history, userInfo, dispatch, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -105,8 +107,10 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
       <Col md={9}>
         <h2>My Orders</h2>
-        {loadingOrders && <Loader />}
-        {errorOrders ? (
+        {/* Need to be in nested if statement or it will have bugs when reload */}
+        {loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
           <Message variant="danger">{errorOrders}</Message>
         ) : (
           <Table striped bordered hover responsive className="table-sm">
