@@ -27,12 +27,13 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
+  userList: userListReducer,
+  userDelete: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducers,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
-  userList: userListReducer,
 });
 
 // put cartItems to initialState when cartItems is updated

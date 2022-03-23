@@ -1,4 +1,4 @@
-import { listUsers } from '../actions/userAction';
+import { deleteUser, listUsers } from '../actions/userAction';
 import { Button, Table } from 'react-bootstrap';
 import Loader from 'components/Loader';
 import Message from 'components/Message';
@@ -15,16 +15,21 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
-    console.log('delete');
+    // change to ui window
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
