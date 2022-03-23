@@ -139,7 +139,6 @@ const getUserById = asyncHandler(async (req, res) => {
 // @route PUT /api/users/:id
 // @access Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const user = await User.findById(req.params.id);
 
   // check if the user exist

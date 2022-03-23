@@ -8,9 +8,6 @@ import { register } from '../actions/userAction';
 import FormContainer from '../components/FormContainer';
 
 const RegisterScreen = ({ location, history }) => {
-  console.dir(location);
-  console.dir(history);
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

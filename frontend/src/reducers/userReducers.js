@@ -110,3 +110,18 @@ export const userDeleteReducer = (state = {}, { type, payload }) => {
       return state;
   }
 };
+
+export const userUpdateReducer = (state = { user: {} }, { type, payload }) => {
+  switch (type) {
+    case USER_DELETE_REQUEST:
+      return { loading: true };
+    case USER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case USER_DELETE_FAIL:
+      return { loading: false, error: payload };
+    case USER_UPDATE_PROFILE_RESET:
+      return { user: {} };
+    default:
+      return state;
+  }
+};
