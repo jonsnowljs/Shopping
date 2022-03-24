@@ -11,6 +11,20 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
+// {
+//   user:
+//   name:
+//   image:
+//   brand:
+//   category:
+//   rating:
+//   description:
+//   numReviews:
+//   price:
+//   countInStock:
+//   reviews:[optional]
+// }
+
 const productSchema = mongoose.Schema(
   {
     user: {
@@ -32,6 +46,10 @@ const productSchema = mongoose.Schema(
     },
     reviews: [reviewSchema],
     category: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
