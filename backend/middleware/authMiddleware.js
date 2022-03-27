@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import asyncHandler from 'express-async-handler';
 
+// @desc Middleware for checking if user is logged in
 const protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
@@ -27,6 +28,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc Middleware for checking if user is admin
 const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
