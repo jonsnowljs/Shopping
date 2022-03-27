@@ -20,6 +20,7 @@ import {
 } from './reducers/userReducers';
 import {
   orderCreateReducers,
+  orderDeliverReducer,
   orderDetailsReducer,
   orderListMyReducer,
   orderListReducer,
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
 // put cartItems to initialState when cartItems is updated

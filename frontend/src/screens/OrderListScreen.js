@@ -15,8 +15,6 @@ const OrderListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const orderDelete = useSelector((state) => state.orderDelete);
-  // const { success: successDelete } = orderDelete;
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listOrders());
@@ -24,13 +22,6 @@ const OrderListScreen = ({ history }) => {
       history.push('/login');
     }
   }, [dispatch, history, userInfo]);
-
-  const deleteHandler = (id) => {
-    // change to ui window
-    if (window.confirm('Are you sure')) {
-      // dispatch(deleteUser(id));
-    }
-  };
 
   return (
     <>
@@ -45,7 +36,7 @@ const OrderListScreen = ({ history }) => {
             <tr>
               <th>ORDER ID</th>
               <th>USER NAME</th>
-              <th>DATE</th>
+              <th>ORDER DATE</th>
               <th>TOTAL PRICE</th>
               <th>PAID</th>
               <th>DELIVERED</th>
@@ -57,7 +48,7 @@ const OrderListScreen = ({ history }) => {
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.user.name}</td>
-                <td>{order.createdAt}</td>
+                <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{`$${order.totalPrice}`}</td>
                 <td>
                   {order.isPaid ? (
@@ -76,7 +67,7 @@ const OrderListScreen = ({ history }) => {
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
                     <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+                      Details
                     </Button>
                   </LinkContainer>
                 </td>
