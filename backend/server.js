@@ -1,7 +1,9 @@
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
+// used to color the log output
 import colors from 'colors';
+import morgan from 'morgan';
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
@@ -15,6 +17,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// only use in development
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(express.json());
 
