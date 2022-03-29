@@ -4,11 +4,14 @@ import Product from '../models/productModel.js';
 // @desc Fetch all products
 // @route GET /api/products
 // @access Public
+// @response { products:[{ <product1> }, { <product2> }, ...], page, pages }
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 12; //TODO const for set how many product in one page, make this available in admin console
+  const page = Number(req.query.pageNumber) || 1;
+
   // req.query will return a JS object after the query string is parsed.
   // $regex Provides regular expression capabilities for pattern matching strings in queries
   // $option: i Case insensitive
-  console.log(req.query);
   const keyword = req.query.keyword
     ? {
         name: {
@@ -17,14 +20,20 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
-  console.log(keyword);
-  const products = await Product.find(keyword);
-  res.json(products);
+
+  // count how many product fit for search param
+  const count = await Product.countDocuments(keyword);
+  // limit: limit the return products to pageSize; skip: skip (page-1) page
+  const products = await Product.find(keyword)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc Fetch single products
 // @route GET /api/products/:id
 // @access Public
+// @response { <product> }
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -38,6 +47,7 @@ const getProductById = asyncHandler(async (req, res) => {
 // @desc Delete a product
 // @route Delete /api/products/:id
 // @access Private/admin
+// @response { { message: 'Product removed' } }
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
@@ -53,6 +63,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @desc create a product
 // @route POST /api/products
 // @access Private/admin
+// @response { <product> }
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     name: 'Sample name',
@@ -74,6 +85,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // @desc update a product
 // @route PUT /api/products/:id
 // @access Private/admin
+// @response { <updatedProduct> }
 const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, image, brand, category, countInStock, description } =
     req.body;
@@ -99,6 +111,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @desc Create new Review
 // @route POST /api/products/:id/reviews
 // @access Private
+// @response { message: 'Review created' }
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const product = await Product.findById(req.params.id);

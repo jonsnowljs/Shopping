@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Placeholder } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 const SearchBox = ({ history }) => {
   const [keyword, setKeyword] = useState('');
@@ -21,7 +21,7 @@ const SearchBox = ({ history }) => {
         type="text"
         name="q"
         onChange={(e) => setKeyword(e.target.value)}
-        Placeholder="Search Products"
+        placeholder="Search Products"
         className="mr-sm-2 ml-sm-5"
       ></Form.Control>
       <Button type="submit" variant="outline-success" className="p-2">
