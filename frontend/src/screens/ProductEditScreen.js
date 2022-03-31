@@ -9,6 +9,8 @@ import { listProductsDetails, updateProduct } from 'actions/productAction';
 import { PRODUCT_UPDATE_RESET } from 'constants/productConstants';
 import axios from 'axios';
 import Cropper from 'react-easy-crop';
+import { getCroppedImg } from 'components/canvasUtils';
+import RangeSlider from 'react-bootstrap-range-slider';
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
@@ -22,6 +24,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
+  const [rotation, setRotation] = useState(0);
 
   // upload cropper state
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -39,9 +42,19 @@ const ProductEditScreen = ({ match, history }) => {
     success: successUpdate,
   } = productUpdate;
 
+  //
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     console.log(croppedArea, croppedAreaPixels);
   }, []);
+
+  const showCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(image, rotation);
+      console.log('donee', { croppedImage });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [image, rotation]);
 
   useEffect(() => {
     if (successUpdate) {
@@ -93,6 +106,7 @@ const ProductEditScreen = ({ match, history }) => {
 
       const { data } = await axios.post('/api/upload', formData, config);
       setImage(data);
+      setUploading(false);
       setShowCropper(true);
     } catch (error) {
       setUploading(false);
@@ -144,17 +158,19 @@ const ProductEditScreen = ({ match, history }) => {
               </Form.Group>
 
               <Form.Group controlId="image">
-                <Form.Label>Image</Form.Label>
-                <Form.Control
-                  type="file"
-                  id="image-file"
-                  label="Choose File"
-                  custom
-                  onChange={uploadFileHandler}
-                  className="d-flex align-items-center"
-                />
-
-                {uploading && <Loader style={{ position: 'absolute' }} />}
+                <div>
+                  <Form.Label>Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    id="image-file"
+                    label="Choose File"
+                    custom
+                    onChange={uploadFileHandler}
+                    className="d-flex align-items-center"
+                  />
+                  {/* TODO add Loader inside the form */}
+                  {uploading && <Loader />}
+                </div>
               </Form.Group>
 
               <Form.Group controlId="brand">
@@ -204,16 +220,23 @@ const ProductEditScreen = ({ match, history }) => {
         )}
       </FormContainer>
       {image && (
-        <Modal show={showCropper} onHide={cropperCloseHandler}>
+        <Modal
+          show={showCropper}
+          onHide={cropperCloseHandler}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>Crop Image</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="img-container" style={{ height: '300px' }}>
+            <div className="img-container" style={{ height: '600px' }}>
               <Cropper
                 image={image}
                 crop={crop}
                 zoom={zoom}
+                rotation={rotation}
                 aspect={4 / 3}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
@@ -222,6 +245,16 @@ const ProductEditScreen = ({ match, history }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
+            <RangeSlider
+              value={rotation}
+              min={0}
+              max={360}
+              step={1}
+              aria-labelledby="Rotation"
+              onChange={(e, rotation) => setRotation(rotation)}
+              size={'100px'}
+              className="lg"
+            />
             <Button variant="secondary" onClick={cropperCloseHandler}>
               Close
             </Button>
