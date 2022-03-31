@@ -15,7 +15,7 @@ const ProductCarousel = () => {
   useEffect(() => {
     dispatch(listTopProducts());
   }, [dispatch]);
-
+  // TODO make carousel responsive and look good
   return loading ? (
     <Loader />
   ) : error ? (

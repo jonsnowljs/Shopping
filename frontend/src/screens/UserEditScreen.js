@@ -29,7 +29,6 @@ const UserEditScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (successUpdate) {
-      console.log(userUpdate);
       dispatch({ type: USER_UPDATE_RESET });
       history.push('/admin/userList');
     } else {
