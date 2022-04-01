@@ -16,7 +16,6 @@ const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
 
   const [name, setName] = useState('');
-  const [image, setImage] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
@@ -25,6 +24,9 @@ const ProductEditScreen = ({ match, history }) => {
   const [uploading, setUploading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  // image is the base64 string of the image. It will be used to upload the image to the server .
+  const [image, setImage] = useState('');
 
   // upload cropper state
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -35,26 +37,16 @@ const ProductEditScreen = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
-
-  //
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels);
-  }, []);
-
-  const showCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(image, rotation);
-      console.log('donee', { croppedImage });
-    } catch (e) {
-      console.error(e);
-    }
-  }, [image, rotation]);
 
   useEffect(() => {
     if (successUpdate) {
@@ -92,9 +84,16 @@ const ProductEditScreen = ({ match, history }) => {
   };
 
   const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
+    if (rotation || croppedAreaPixels) {
+      console.log(rotation);
+      const imageData = await getCroppedImg(image, croppedAreaPixels, rotation);
+      // if it's setImage(imageData), imageData will be previous data. the updated data will not be saved.
+      setImage(() => imageData);
+    }
+    console.log(image);
+
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('image', image);
     setUploading(true);
 
     try {
@@ -108,7 +107,7 @@ const ProductEditScreen = ({ match, history }) => {
       setImage(data);
       setUploading(false);
       setShowCropper(true);
-    } catch (error) {
+    } catch (errors) {
       setUploading(false);
     }
   };
@@ -116,7 +115,12 @@ const ProductEditScreen = ({ match, history }) => {
   const cropperCloseHandler = () => {
     setShowCropper(false);
   };
-  const cropperOpenHandler = () => {
+  const cropperOpenHandler = async (e) => {
+    const file = e.target.files[0];
+    const imageData = await readFile(file);
+    setImage(imageData);
+    console.log(image);
+    console.log(file);
     setShowCropper(true);
   };
 
@@ -162,10 +166,8 @@ const ProductEditScreen = ({ match, history }) => {
                   <Form.Label>Image</Form.Label>
                   <Form.Control
                     type="file"
-                    id="image-file"
                     label="Choose File"
-                    custom
-                    onChange={uploadFileHandler}
+                    onChange={cropperOpenHandler}
                     className="d-flex align-items-center"
                   />
                   {/* TODO add Loader inside the form */}
@@ -252,20 +254,29 @@ const ProductEditScreen = ({ match, history }) => {
               step={1}
               aria-labelledby="Rotation"
               onChange={(e, rotation) => setRotation(rotation)}
-              size={'100px'}
+              size={'lg'}
               className="lg"
             />
             <Button variant="secondary" onClick={cropperCloseHandler}>
               Close
             </Button>
-            <Button variant="primary" onClick={cropperCloseHandler}>
+            <Button variant="primary" onClick={uploadFileHandler}>
               Save Changes
             </Button>
           </Modal.Footer>
         </Modal>
       )}
+      <img src={image} alt="product" />
     </>
   );
 };
+
+function readFile(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => resolve(reader.result), false);
+    reader.readAsDataURL(file);
+  });
+}
 
 export default ProductEditScreen;
