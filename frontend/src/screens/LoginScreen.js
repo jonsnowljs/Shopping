@@ -30,6 +30,15 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(email, password));
   };
 
+  const asAdminHandler = () => {
+    setEmail('admin@example.com');
+    setPassword('123456');
+  };
+
+  const asUserHandler = () => {
+    setEmail('admin@example.com');
+    setPassword('123456');
+  };
   return (
     <FormContainer>
       <h1>Sign In</h1>
@@ -58,6 +67,19 @@ const LoginScreen = ({ location, history }) => {
         <Button type="submit" variant="primary">
           Sign In
         </Button>
+        <Form.Group>
+          <Form.Label>For Demo </Form.Label>
+          <div>
+            <Button type="submit" variant="secondary" onClick={asAdminHandler}>
+              Sign In As Admin
+            </Button>
+          </div>
+          <div>
+            <Button type="submit" variant="secondary" onClick={asUserHandler}>
+              Sign In As User
+            </Button>
+          </div>
+        </Form.Group>
       </Form>
       <Row className="py-3">
         <Col>

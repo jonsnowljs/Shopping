@@ -85,12 +85,10 @@ const ProductEditScreen = ({ match, history }) => {
 
   const uploadFileHandler = async (e) => {
     if (rotation || croppedAreaPixels) {
-      console.log(rotation);
       const imageData = await getCroppedImg(image, croppedAreaPixels, rotation);
       // if it's setImage(imageData), imageData will be previous data. the updated data will not be saved.
       setImage(() => imageData);
     }
-    console.log(image);
 
     const formData = new FormData();
     formData.append('image', image);
@@ -119,8 +117,6 @@ const ProductEditScreen = ({ match, history }) => {
     const file = e.target.files[0];
     const imageData = await readFile(file);
     setImage(imageData);
-    console.log(image);
-    console.log(file);
     setShowCropper(true);
   };
 
