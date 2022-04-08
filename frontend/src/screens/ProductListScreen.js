@@ -1,6 +1,7 @@
 import { Button, Col, Row, Table } from 'react-bootstrap';
 import Loader from 'components/Loader';
-import Message from 'components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -82,13 +83,26 @@ const ProductListScreen = ({ history, match }) => {
         </Col>
       </Row>
       {loadingDelete && <Loader />}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {errorDelete && (
+        <Alert severity="warning">
+          <AlertTitle>Warning</AlertTitle>
+          {errorDelete}
+        </Alert>
+      )}
       {loadingCreate && <Loader />}
-      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
+      {errorCreate && (
+        <Alert severity="warning">
+          <AlertTitle>Warning</AlertTitle>
+          {errorCreate}
+        </Alert>
+      )}
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <>
           <Table striped bordered hover responsive className="table-sm">

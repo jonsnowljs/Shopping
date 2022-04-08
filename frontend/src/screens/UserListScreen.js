@@ -1,7 +1,8 @@
 import { deleteUser, listUsers } from '../actions/userAction';
 import { Button, Table } from 'react-bootstrap';
 import Loader from 'components/Loader';
-import Message from 'components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -38,7 +39,10 @@ const UserListScreen = ({ history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <Table striped bordered hover responsive className="table-sm">
           <thead>

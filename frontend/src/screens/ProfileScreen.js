@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userAction';
 import { listMyOrders } from 'actions/orderAction';
@@ -56,11 +57,24 @@ const ProfileScreen = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {message && <Message variant="danger">{message}</Message>}
-        {success && (
-          <Message variant="success">{'Profile Updated Successfully'}</Message>
+        {message && (
+          <Alert severity="warning">
+            <AlertTitle>Warning</AlertTitle>
+            {message}
+          </Alert>
         )}
-        {error && <Message variant="danger">{error}</Message>}
+        {success && (
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            {'Profile Updated Successfully'}
+          </Alert>
+        )}
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
@@ -111,7 +125,10 @@ const ProfileScreen = ({ location, history }) => {
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
-          <Message variant="danger">{errorOrders}</Message>
+          <Alert severity="warning">
+            <AlertTitle>Warning</AlertTitle>
+            {errorOrders}
+          </Alert>
         ) : (
           <Table striped bordered hover responsive className="table-sm">
             <thead>

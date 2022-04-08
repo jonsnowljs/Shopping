@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import CheckoutSteps from '../components/CheckoutStep';
 import { Link } from 'react-router-dom';
 import round from 'lodash/round';
@@ -124,7 +125,12 @@ const PlaceOrderScreen = ({ history }) => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
+                {error && (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error}
+                  </Alert>
+                )}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

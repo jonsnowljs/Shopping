@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import { listProductsDetails, updateProduct } from 'actions/productAction';
@@ -129,11 +130,19 @@ const ProductEditScreen = ({ match, history }) => {
       <FormContainer>
         <h1>Edit Product</h1>
         {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
+        {errorUpdate && (
+          <Alert severity="warning">
+            <AlertTitle>Warning</AlertTitle>
+            {errorUpdate}
+          </Alert>
+        )}
         {loading ? (
           <Loader />
         ) : error ? (
-          <Message variant="danger">{error}</Message>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
         ) : (
           <>
             <Form onSubmit={submitHandler}>

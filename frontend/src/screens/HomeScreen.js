@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
-import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProducts } from '../actions/productAction';
 import Paginate from 'components/Paginate';
 import ProductCarousel from 'components/ProductCarousel';
 import Meta from 'components/Meta';
 import { Link } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -27,7 +28,10 @@ const HomeScreen = ({ match }) => {
       {!keyword ? <ProductCarousel /> : <Link to="/">Go Back</Link>}
       {loading && <Loader />}
       {error ? (
-        <Message variant={'danger'}>{error}</Message>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <>
           <Row>

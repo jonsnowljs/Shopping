@@ -18,11 +18,13 @@ import UserEditScreen from 'screens/UserEditScreen';
 import ProductListScreen from 'screens/ProductListScreen';
 import ProductEditScreen from 'screens/ProductEditScreen';
 import OrderListScreen from 'screens/OrderListScreen';
+import Heade from 'components/Heade';
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Heade />
         <Header />
         <main className="py-3">
           <Container>

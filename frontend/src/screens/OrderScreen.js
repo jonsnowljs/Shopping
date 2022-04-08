@@ -8,7 +8,8 @@ import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 // import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { PayPalButton } from 'react-paypal-button-v2';
-import Message from '../components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
 import {
@@ -84,7 +85,10 @@ const OrderScreen = ({ match, history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <>
           <h1>Order {order._id}</h1>
@@ -110,11 +114,14 @@ const OrderScreen = ({ match, history }) => {
                     {order.shippingAddress.country}
                   </p>
                   {order.isDelivered ? (
-                    <Message variant="success">
+                    <Alert severity="success">
+                      <AlertTitle>Success</AlertTitle>
                       Delivered on {order.deliveredAt}
-                    </Message>
+                    </Alert>
                   ) : (
-                    <Message variant="danger">Not Delivered</Message>
+                    <Alert severity="warning">
+                      <AlertTitle>Warning</AlertTitle>Not Delivered
+                    </Alert>
                   )}
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -124,15 +131,19 @@ const OrderScreen = ({ match, history }) => {
                     {order.paymentMethod}
                   </p>
                   {order.isPaid ? (
-                    <Message variant="success">Paid on {order.paidAt}</Message>
+                    <Alert severity="success">
+                      <AlertTitle>Success</AlertTitle>Paid on {order.paidAt}
+                    </Alert>
                   ) : (
-                    <Message variant="danger">Not Paid</Message>
+                    <Alert severity="warning">
+                      <AlertTitle>Warning</AlertTitle>Not Paid
+                    </Alert>
                   )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <h2>Order Items</h2>
                   {order.orderItems.length === 0 ? (
-                    <Message>Your order is empty</Message>
+                    <Alert severity="info">Your order is empty</Alert>
                   ) : (
                     <ListGroup variant="flush">
                       {order.orderItems.map((item, index) => (

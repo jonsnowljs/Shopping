@@ -16,7 +16,8 @@ import {
 } from '../actions/productAction';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
-import Message from '../components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Meta from 'components/Meta';
 
 // TODO ,separate this page to several components
@@ -70,7 +71,10 @@ const ProductScreen = ({ history, match }) => {
       </Link>
       {loading && <Loader />}
       {error ? (
-        <Message variant="danger">{error}</Message>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <>
           <Meta title={product.name} />
@@ -155,7 +159,9 @@ const ProductScreen = ({ history, match }) => {
           <Row>
             <Col md={6}>
               <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message> No Reviews</Message>}
+              {product.reviews.length === 0 && (
+                <Alert severity="info"> No Reviews</Alert>
+              )}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
@@ -168,13 +174,17 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item>
                   <h2>Write a Customer Review</h2>
                   {reviewSuccess && (
-                    <Message variant="success">
+                    <Alert severity="success">
+                      <AlertTitle>Success</AlertTitle>
                       Review submitted successfully
-                    </Message>
+                    </Alert>
                   )}
                   {loadingReview && <Loader />}
                   {errorReview && (
-                    <Message variant="danger">{errorReview}</Message>
+                    <Alert severity="warning">
+                      <AlertTitle>Warning</AlertTitle>
+                      {errorReview}
+                    </Alert>
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
@@ -211,9 +221,9 @@ const ProductScreen = ({ history, match }) => {
                       </Button>
                     </Form>
                   ) : (
-                    <Message>
+                    <Alert severity="info">
                       Please <Link to="login">sign in</Link> to write a review
-                    </Message>
+                    </Alert>
                   )}
                 </ListGroup.Item>
               </ListGroup>

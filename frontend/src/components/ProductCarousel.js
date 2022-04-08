@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Carousel, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from './Loader';
-import Message from './Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import { listTopProducts } from '../actions/productAction';
 
 const ProductCarousel = () => {
@@ -19,7 +20,10 @@ const ProductCarousel = () => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error}</Message>
+    <Alert severity="error">
+      <AlertTitle>Error</AlertTitle>
+      {error}
+    </Alert>
   ) : (
     <Carousel pause="hover" className="bg-dark rounded shadow">
       {products.map((product) => (

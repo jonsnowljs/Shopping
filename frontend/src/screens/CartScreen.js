@@ -1,5 +1,6 @@
 import { addToCart, removeFromCart } from 'actions/cartAction';
-import Message from 'components/Message';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import React, { useEffect } from 'react';
 import {
   Col,
@@ -47,10 +48,10 @@ const CartScreen = ({ match, location, history }) => {
         <h1>Shopping Cart</h1>
         {/* Error message when there is no item in the cart */}
         {cartItems.length === 0 && (
-          <Message>
+          <Alert severity="info">
             Your cart is empty
             <Link to="/">Back</Link>
-          </Message>
+          </Alert>
         )}
 
         {/*display of the Cart when the cart is not empty */}

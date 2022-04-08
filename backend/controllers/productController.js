@@ -6,7 +6,7 @@ import Product from '../models/productModel.js';
 // @access Public
 // @response { products:[{ <product1> }, { <product2> }, ...], page, pages }
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 12; //TODO const for set how many product in one page, make this available in admin console
+  const pageSize = 5; //TODO const for set how many product in one page, make this available in admin console
   const page = Number(req.query.pageNumber) || 1;
 
   // req.query will return a JS object after the query string is parsed.

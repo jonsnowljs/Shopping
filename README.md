@@ -22,18 +22,16 @@ This is an eCommerce web application created with MERN Stack. It has user authen
 
 # Built with
 
-- NodeJs
+- NodeJS
 - Express
-- ReactJs
+- React
 - Redux
 - MongoDb
 - React Hooks
-- React Bootstrap
+- Material UI
 - Axios
 - Bcrypt
 - JSON Web Tokens
-- Prettier
-- Eslint
 - React Helmet
 
 # Live Version
