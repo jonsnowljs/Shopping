@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { logout } from 'actions/userAction';
 import SearchBox from './SearchBox';
 import { Route } from 'react-router-dom';
+import Logo from '../assets/img/cart.svg';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,12 @@ const Header = () => {
   };
   return (
     <header>
-      <Navbar bg="light" expand="md" collapseOnSelect>
+      <Navbar bg="light" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
               <img
-                src="../assets/img/cart.svg"
+                src={Logo}
                 alt="logo"
                 width="30"
                 height="24"
