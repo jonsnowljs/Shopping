@@ -16,13 +16,19 @@ const Header = () => {
   };
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar bg="light" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Shopping</Navbar.Brand>
+            <Navbar.Brand>
+              <img src='' alt='logo' width="30" height="24" class="d-inline-block align-text-top" />
+                Shopping
+              </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-between"
+          >
             {/* need import history props from React router lib */}
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
