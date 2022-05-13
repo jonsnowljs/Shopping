@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/jonsnowljs/Shopping#readme",
   "dependencies": {
+    "@egjs/flicking-plugins": "^4.3.0",
+    "@egjs/react-flicking": "^4.7.0",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.0",
