@@ -7,6 +7,7 @@ import { Perspective, AutoPlay } from '@egjs/flicking-plugins';
 import { useDispatch, useSelector } from 'react-redux';
 import { listTopProducts } from 'actions/productAction';
 import { Link } from 'react-router-dom';
+import './FlickCarousel.css'
 
 export const FlickCarousel = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ export const FlickCarousel = () => {
                     '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
                 }}
               ></img>
+              <span class="badge">Best Seller</span>
             </div>
           </Link>
         ))}
