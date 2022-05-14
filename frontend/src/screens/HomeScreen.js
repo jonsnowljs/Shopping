@@ -9,6 +9,7 @@ import Paginate from 'components/Paginate';
 import ProductCarousel from 'components/ProductCarousel';
 import Meta from 'components/Meta';
 import { Link } from 'react-router-dom';
+import {FlickCarousel} from 'components/FlickCarousel';
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -24,7 +25,7 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      {!keyword ? <ProductCarousel /> : <Link to="/">Go Back</Link>}
+      {!keyword ? <FlickCarousel/> : <Link to="/">Go Back</Link>}
       {loading && <Loader />}
       {error ? (
         <Message variant={'danger'}>{error}</Message>
