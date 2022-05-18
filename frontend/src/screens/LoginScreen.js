@@ -64,31 +64,39 @@ const LoginScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="mt-4">
           Sign In
         </Button>
+
+        <Row className="py-3">
+          <Col>
+            New Customer?{'  '}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : '/register'}
+            >
+              Register
+            </Link>
+          </Col>
+        </Row>
         <Form.Group>
-          <Form.Label>For Demo </Form.Label>
-          <div>
-            <Button type="submit" variant="secondary" onClick={asAdminHandler}>
+          <Form.Label className="mx-xl-4, mr-sm-0">Used for demo: </Form.Label>
+          <Form.Text className="mx-xl-4, mr-sm-0">
+            <Button
+              type="submit"
+              variant="secondary"
+              onClick={asAdminHandler}
+              className="ml-2"
+            >
               Sign In As Admin
             </Button>
-          </div>
-          <div>
+          </Form.Text>
+          <Form.Text className="mx-xl-4, mr-sm-0">
             <Button type="submit" variant="secondary" onClick={asUserHandler}>
               Sign In As User
             </Button>
-          </div>
+          </Form.Text>
         </Form.Group>
       </Form>
-      <Row className="py-3">
-        <Col>
-          New Customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
-          </Link>
-        </Col>
-      </Row>
     </FormContainer>
   );
 };
