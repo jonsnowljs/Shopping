@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'SucculentShop'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_12AF3E66D5A94E9E9569FD5FB058EA27 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0AA69550645D4671839A1E7C20E1CB3F }}
           package: .
