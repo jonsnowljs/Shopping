@@ -1,7 +1,7 @@
 const products = [
   {
     name: 'Apple MacBook Air',
-    image: '/images/macbook_air.jpg',
+    image: '/images/macbook_Air.jpg',
     description:
       'Apple M1 Chip, 13” Retina Display, 8GB RAM, 256GB SSD Storage, Backlit Keyboard, FaceTime HD Camera, Touch ID. Works with iPhone/iPad; Space Gray',
     brand: 'Apple',
