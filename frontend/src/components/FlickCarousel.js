@@ -2,7 +2,7 @@ import Flicking, { ViewportSlot } from '@egjs/react-flicking';
 import '@egjs/react-flicking/dist/flicking.css';
 // Or, if you have to support IE9
 import '@egjs/react-flicking/dist/flicking-inline.css';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { Perspective, AutoPlay } from '@egjs/flicking-plugins';
 import { useDispatch, useSelector } from 'react-redux';
 import { listTopProducts } from 'actions/productAction';
@@ -13,7 +13,7 @@ export const FlickCarousel = () => {
   const dispatch = useDispatch();
 
   const productTopRated = useSelector((state) => state.productTopRated);
-  const { loading, error, products } = productTopRated;
+  const {products } = productTopRated;
 
   useEffect(() => {
     dispatch(listTopProducts());

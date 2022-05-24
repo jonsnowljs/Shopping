@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getUserDetails, register, updateUser } from '../actions/userAction';
+import { getUserDetails, updateUser } from '../actions/userAction';
 import FormContainer from '../components/FormContainer';
 import { USER_UPDATE_RESET } from 'constants/userConstants';
 
