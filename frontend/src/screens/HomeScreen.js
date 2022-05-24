@@ -6,7 +6,6 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProducts } from '../actions/productAction';
 import Paginate from 'components/Paginate';
-import ProductCarousel from 'components/ProductCarousel';
 import Meta from 'components/Meta';
 import { Link } from 'react-router-dom';
 import {FlickCarousel} from 'components/FlickCarousel';
