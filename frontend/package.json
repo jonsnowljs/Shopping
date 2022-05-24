@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@egjs/flicking-plugins": "^4.3.0",
+    "@egjs/react-flicking": "^4.7.1",
     "@paypal/react-paypal-js": "^7.6.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
